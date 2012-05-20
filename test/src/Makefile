@@ -16,6 +16,12 @@
 PROGRAM	= test
 
 #
+# The SOURCES macro contains a list of source files.
+#
+
+SOURCES	= test.c hello.c
+
+#
 # The HOME macro is the home directory of the program.
 #
 # The INCLUDEDIRS macro contains a list of include directories
@@ -39,8 +45,6 @@ LIBDIRS	= \
 LIBS = -lm
 
 #
-# The SOURCES macro contains a list of source files.
-#
 # The OBJECTS macro converts the SOURCES macro into a list of
 # object files.
 #
@@ -54,7 +58,6 @@ LIBS = -lm
 # directory information to be passed to the linker.
 #
 
-SOURCES	= test.c hello.c
 OBJECTS	= $(SOURCES:.c=.o)
 
 CC	= gcc
