@@ -1,10 +1,15 @@
-#include "thesis.h"
+#include <stdio.h>
+#include <string.h>
 
-int main(int argc, char *argv[])
+#include "contact.h"
+#include "project_tools.h"
+
+int main(int argc, char* argv[])
 {
-	/* test prototype */
+	struct contact *yan;
 
-	hello();
+	yan = create_contact();
+	display_contact(yan);
 
 	return 0;
 }

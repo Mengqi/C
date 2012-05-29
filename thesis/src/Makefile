@@ -19,7 +19,7 @@ PROGRAM	= thesis
 # The SOURCES macro contains a list of source files.
 #
 
-SOURCES	= thesis.c lzw.c
+SOURCES	= thesis.c contact.c project_tools.c
 
 #
 # The HOME macro is the home directory of the program.
