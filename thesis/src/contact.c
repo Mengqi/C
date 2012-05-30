@@ -1,3 +1,10 @@
+/*
+ * contact.h
+ *
+ * Functions that dealing with a single contact.
+ *
+ */
+
 #include <stdio.h>
 #include <malloc.h>
 #include <string.h>
@@ -21,7 +28,7 @@ struct contact *create_contact(void)
 	return c;
 }
 
-/* init all the texts in the contact to be empty string */
+/* initiate all the texts in the contact to be empty string */
 void init_contact(struct contact *c)
 {
 	c->name[0] = '\0';
@@ -188,6 +195,15 @@ int display_contact(struct contact *c)
 	printf("QQ: %s", c->qq_number);
 	printf("Note: %s", c->note);
 
+	return 1;
+}
+
+int remove_contact(struct contact *c)
+{
+	if (c == NULL)
+		return 0;
+
+	free(c);
 	return 1;
 }
 

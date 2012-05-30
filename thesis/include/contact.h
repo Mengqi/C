@@ -31,5 +31,6 @@ int check_email_format(char *email);
 void input_qq_number(char *buffer, struct contact *c);
 void input_note(char *buffer, struct contact *c);
 int display_contact(struct contact *c);
+int remove_contact(struct contact *c);
 
 #endif /* _CONTACTS_H */
