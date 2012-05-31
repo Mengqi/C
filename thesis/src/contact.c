@@ -1,5 +1,5 @@
 /*
- * contact.h
+ * contact.c
  *
  * Functions that dealing with a single contact.
  *
