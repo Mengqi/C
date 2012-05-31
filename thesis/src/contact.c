@@ -183,19 +183,83 @@ void input_note(char *buffer, struct contact *c)
 	strcpy(c->note, buffer);
 }
 
-int display_contact(struct contact *c)
+void display_contact(struct contact *c)
 {
-	if (c == NULL)
-		return 0;
-
 	printf("Name: %s", c->name);
 	printf("Phone Number: %s", c->phone_number);
 	printf("Address: %s", c->address);
 	printf("Email: %s", c->email);
 	printf("QQ: %s", c->qq_number);
 	printf("Note: %s", c->note);
+}
+
+int edit_contact(struct contact *c)
+{
+	char buffer[BUFFER_SIZE];
+
+	edit_name(buffer, c);
+	edit_phone_number(buffer, c);
+	edit_address(buffer, c);
+	edit_email(buffer, c);
+	edit_qq_number(buffer, c);
+	edit_note(buffer, c);
 
 	return 1;
+}
+
+void edit_name(char *buffer, struct contact *c)
+{
+	printf("Name: %s", c->name);
+	if (edit_option() == 1)
+		input_name(buffer, c);
+}
+
+void edit_phone_number(char *buffer, struct contact *c)
+{
+	printf("Phone Number: %s", c->phone_number);
+	if (edit_option() == 1)
+		input_phone_number(buffer, c);
+}
+
+void edit_address(char *buffer, struct contact *c)
+{
+	printf("Address: %s", c->address);
+	if (edit_option() == 1)
+		input_address(buffer, c);
+}
+
+void edit_email(char *buffer, struct contact *c)
+{
+	printf("Email: %s", c->email);
+	if (edit_option() == 1)
+		input_email(buffer, c);
+}
+
+void edit_qq_number(char *buffer, struct contact *c)
+{
+	printf("QQ: %s", c->qq_number);
+	if (edit_option() == 1)
+		input_qq_number(buffer, c);
+}
+
+void edit_note(char *buffer, struct contact *c)
+{
+	printf("Note: %s", c->note);
+	if (edit_option() == 1)
+		input_note(buffer, c);
+}
+
+/* return 1 if you want to edit, otherwise return 0 */
+int edit_option(void)
+{
+	char option[OPTION_LENGTH];
+
+	printf("Do you want to edit it? (Y/N)\n");
+	get_line(option, OPTION_LENGTH);
+	if (option[0] == 'Y' || option[0] == 'y')
+		return 1;
+	else
+		return 0;
 }
 
 int remove_contact(struct contact *c)

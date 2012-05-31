@@ -10,6 +10,8 @@ int main(int argc, char* argv[])
 
 	yan = create_contact();
 	display_contact(yan);
+	edit_contact(yan);
+	display_contact(yan);
 
 	return 0;
 }
