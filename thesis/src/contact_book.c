@@ -59,7 +59,6 @@ void input_account_name(char *buffer, struct contact_book *book)
 	strcpy(book->account, buffer);
 }
 
-
 /* check if the account name is available */
 int check_account_available(char *account)
 {
@@ -68,8 +67,42 @@ int check_account_available(char *account)
 	return 1;
 }
 
+struct contact_page *create_contact_page(void)
+{
+	struct contact_page *page;
+	struct contact *c;
+
+	page = (struct contact_page *)malloc(sizeof(struct contact_page));
+	if (page == NULL)
+		return NULL;
+
+	c = create_contact();
+	if (c == NULL)
+		return NULL;
+
+	page->c = c;
+	page->next = NULL;
+
+	return page;
+}
+
+int edit_contact_page(struct contact_page *page)
+{
+	edit_contact(page->c);
+
+	return 1;
+}
+
+int remove_contact_page(struct contact_page *page)
+{
+	free(page->c);
+	free(page);
+
+	return 1;
+}
+
 /* add contact_page at the beginning of the linked-list */
-int add_account_page_at_beginning(struct contact_book *book,
+int add_contact_page_at_beginning(struct contact_book *book,
 				  struct contact_page *page)
 {
 	if (book->head == NULL) {
@@ -86,7 +119,7 @@ int add_account_page_at_beginning(struct contact_book *book,
 }
 
 /* add contact_page at the end of the linked-list */
-int add_account_page_at_end(struct contact_book *book,
+int add_contact_page_at_end(struct contact_book *book,
 			    struct contact_page *page)
 {
 	struct contact_page *temp;
@@ -111,7 +144,7 @@ int add_account_page_at_end(struct contact_book *book,
 	return 1;
 }
 
-int add_account_page_at_pos(struct contact_book *book, int pos,
+int add_contact_page_at_pos(struct contact_book *book, int pos,
 			    struct contact_page *page)
 {
 	int i;
@@ -122,7 +155,7 @@ int add_account_page_at_pos(struct contact_book *book, int pos,
 	if (pos <= 0 || pos > book->contact_num) {
 		return 0;
 	} else if (pos == 1) {
-		add_account_page_at_beginning(book, page);
+		add_contact_page_at_beginning(book, page);
 	} else {
 		for (i = 1; i < pos; i++) {
 			prev_ptr = cur_ptr;
@@ -138,21 +171,23 @@ int add_account_page_at_pos(struct contact_book *book, int pos,
 	return 1;
 }
 
-int delete_page_by_name(struct contact_book *book, char *name)
+int delete_contact_page_by_name(struct contact_book *book, char *name)
 {
 	struct contact_page *prev_ptr, *cur_ptr;
 
 	cur_ptr = book->head;
 
 	while(cur_ptr != NULL) {
-		if (strcmp(cur_ptr->c.name, name) == 0) {
+		if (strcmp(cur_ptr->c->name, name) == 0) {
 			if (cur_ptr == book->head) {
 				book->head = book->head->next;
-				free(cur_ptr);
+				remove_contact_page(cur_ptr);
+				book->contact_num--;
 				return 1;
 			} else {
 				prev_ptr->next = cur_ptr->next;
-				free(cur_ptr);
+				remove_contact_page(cur_ptr);
+				book->contact_num--;
 				return 1;
 			}
 		} else {
@@ -164,3 +199,49 @@ int delete_page_by_name(struct contact_book *book, char *name)
 	/* name not found */
 	return 0;
 }
+
+int delete_contact_page_by_pos(struct contact_book *book, int pos)
+{
+	struct contact_page *prev_ptr, *cur_ptr;
+	int i;
+
+	cur_ptr = book->head;
+
+	if (pos > book->contact_num || pos <= 0) {
+		return 0;
+	} else if (pos == 1) {
+		book->head = cur_ptr->next;
+		remove_contact_page(cur_ptr);
+		book->contact_num--;
+		return 1;
+	} else {
+		for (i = 1; i < pos; i++) {
+			prev_ptr = cur_ptr;
+			cur_ptr = cur_ptr->next;
+		}
+
+		prev_ptr->next = cur_ptr->next;
+		remove_contact_page(cur_ptr);
+		book->contact_num--;
+		return 1;
+	}
+}
+
+void display_contact_book(struct contact_book *book)
+{
+	struct contact_page *cur_ptr;
+	int i;
+
+	i = 1;
+	cur_ptr = book->head;
+
+	if (cur_ptr == NULL) {
+		printf("The contact book is empty.\n");
+	} else {
+		while (cur_ptr != NULL) {
+			printf("Contact %d\n", i);
+			display_contact(cur_ptr->c);
+		}
+	}
+}
+
