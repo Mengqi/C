@@ -1,7 +1,7 @@
 /*
  * contact.c
  *
- * Functions that dealing with a single contact.
+ * Functions dealing with operations about a single contact.
  *
  */
 
@@ -28,7 +28,7 @@ struct contact *create_contact(void)
 	return c;
 }
 
-/* initiate all the texts in the contact to be empty string */
+/* initiate all texts in the given contact to be the empty string */
 void init_contact(struct contact *c)
 {
 	c->name[0] = '\0';
@@ -39,7 +39,7 @@ void init_contact(struct contact *c)
 	c->note[0] = '\0';
 }
 
-/* input the text in the contact */
+/* input all texts in the contact */
 int input_contact(struct contact *c)
 {
 	char buffer[BUFFER_SIZE];
@@ -61,10 +61,10 @@ void input_name(char *buffer, struct contact *c)
 	while (strlen(buffer) + 1 > NAME_LENGTH
 	       || strlen(buffer) == 1) {
 		if (strlen(buffer) + 1 > NAME_LENGTH) {
-			printf("ERROR: The length of the name can be at "
+			printf("[ERROR] The length of the name can be at "
 			       "most %d, please enter again: ", NAME_LENGTH);
 		} else {
-			printf("ERROR: The name cant not be empty, "
+			printf("[ERROR] The name can not be empty, "
 				"please enter again: ");
 		}
 		get_line(buffer, BUFFER_SIZE);
@@ -77,7 +77,7 @@ void input_phone_number(char *buffer, struct contact *c)
 	printf("Please input contact's phone number: ");
 	get_line(buffer, BUFFER_SIZE);
 	while (strlen(buffer) + 1 > PHONE_LENGTH) {
-		printf("ERROR: The length of the phone number can be at "
+		printf("[ERROR] The length of the phone number can be at "
 		       "most %d, please enter again: ", PHONE_LENGTH);
 		get_line(buffer, BUFFER_SIZE);
 	}
@@ -89,7 +89,7 @@ void input_address(char *buffer, struct contact *c)
 	printf("Please input contact's address: ");
 	get_line(buffer, BUFFER_SIZE);
 	while (strlen(buffer) + 1 > ADDRESS_LENGTH) {
-		printf("ERROR: The length of the address can be at "
+		printf("[ERROR] The length of the address can be at "
 		       "most %d, please enter again: ", ADDRESS_LENGTH);
 		get_line(buffer, BUFFER_SIZE);
 	}
@@ -103,10 +103,10 @@ void input_email(char *buffer, struct contact *c)
 	while (strlen(buffer) + 1 > EMAIL_LENGTH
 	       || check_email_format(buffer) == 0) {
 		if (strlen(buffer) + 1 > EMAIL_LENGTH) {
-			printf("ERROR: The length of email can be at most"
+			printf("[ERROR] The length of email can be at most"
 			       " %d, please enter again: ", EMAIL_LENGTH);
 		} else {
-			printf("ERROR: Invaild email address, please enter "
+			printf("[ERROR] Invaild email address, please enter "
 			       "again: ");
 		}
 		get_line(buffer, BUFFER_SIZE);
@@ -129,9 +129,9 @@ int check_email_format(char *email)
 	if (strlen(email) == 1)
 		return 1;
 	/*
-	 * If the email is not empty. Then if and only
+	 * If the email is not empty, it is valid if and only
 	 * if there is one '@' and at most three'.' after
-	 * "@" in the email, then the email is valid.
+	 * "@" in the email.
 	 */
 
 	/* check '@' */
@@ -164,7 +164,7 @@ void input_qq_number(char *buffer, struct contact *c)
 	printf("Please input contact's qq number: ");
 	get_line(buffer, BUFFER_SIZE);
 	while (strlen(buffer) + 1 > QQ_LENGTH) {
-		printf("ERROR: The length of the qq number can be at "
+		printf("[ERROR] The length of the qq number can be at "
 		       "most %d, please enter again: ", QQ_LENGTH);
 		get_line(buffer, BUFFER_SIZE);
 	}
@@ -176,7 +176,7 @@ void input_note(char *buffer, struct contact *c)
 	printf("Please input contact's note: ");
 	get_line(buffer, BUFFER_SIZE);
 	while (strlen(buffer) + 1 > NOTE_LENGTH) {
-		printf("ERROR: The length of the note can be at "
+		printf("[ERROR] The length of the note can be at "
 		       "most %d, please enter again: ", NOTE_LENGTH);
 		get_line(buffer, BUFFER_SIZE);
 	}
@@ -185,14 +185,15 @@ void input_note(char *buffer, struct contact *c)
 
 void display_contact(struct contact *c)
 {
-	printf("Name: %s", c->name);
-	printf("Phone Number: %s", c->phone_number);
-	printf("Address: %s", c->address);
-	printf("Email: %s", c->email);
-	printf("QQ: %s", c->qq_number);
-	printf("Note: %s", c->note);
+	printf(">> Name: %s", c->name);
+	printf(">> Phone Number: %s", c->phone_number);
+	printf(">> Address: %s", c->address);
+	printf(">> Email: %s", c->email);
+	printf(">> QQ: %s", c->qq_number);
+	printf(">> Note: %s", c->note);
 }
 
+/* modify the contact */
 int edit_contact(struct contact *c)
 {
 	char buffer[BUFFER_SIZE];
@@ -249,25 +250,15 @@ void edit_note(char *buffer, struct contact *c)
 		input_note(buffer, c);
 }
 
-/* return 1 if you want to edit, otherwise return 0 */
+/* return 1 if about to edit, otherwise return 0 */
 int edit_option(void)
 {
 	char option[OPTION_LENGTH];
 
-	printf("Do you want to edit it? (Y/N)\n");
+	printf("Do you want to edit it? (Y/N) ");
 	get_line(option, OPTION_LENGTH);
 	if (option[0] == 'Y' || option[0] == 'y')
 		return 1;
 	else
 		return 0;
 }
-
-int remove_contact(struct contact *c)
-{
-	if (c == NULL)
-		return 0;
-
-	free(c);
-	return 1;
-}
-

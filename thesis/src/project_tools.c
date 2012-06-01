@@ -1,3 +1,10 @@
+/*
+ * project_tools.c
+ *
+ * Functions for general purposes.
+ *
+ */
+
 #include <stdio.h>
 
 /*

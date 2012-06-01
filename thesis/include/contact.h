@@ -9,7 +9,7 @@
 #define NOTE_LENGTH 2000
 
 #define BUFFER_SIZE 5000
-#define OPTION_LENGTH 20
+#define OPTION_LENGTH 100
 
 struct contact {
 	char name[NAME_LENGTH];
@@ -40,6 +40,5 @@ void edit_email(char *buffer, struct contact *c);
 void edit_qq_number(char *buffer, struct contact *c);
 void edit_note(char *buffer, struct contact *c);
 int edit_option(void);
-int remove_contact(struct contact *c);
 
 #endif /* _CONTACTS_H */
