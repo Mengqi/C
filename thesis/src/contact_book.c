@@ -277,7 +277,7 @@ void list_contact_name(struct contact_book *book)
 	} else {
 		printf("************ Contacts ***********\n");
 		while (cur_ptr != NULL) {
-			printf(">> %d. %s", i, cur_ptr->c);
+			printf(">> %d. %s", i, cur_ptr->c->name);
 			cur_ptr = cur_ptr->next;
 			i++;
 		}
