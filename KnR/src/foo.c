@@ -1,7 +1,15 @@
 #include <foo.h>
 
+void exit_pause(void)
+{
+	char buff[BUFFER_SIZE];
+
+	printf("Press any key to exit...");
+	get_line(buff, BUFFER_SIZE);
+}
+
 /* copy input to output */
-void file_copy()
+void file_copy(void)
 {
 	int c;
 
@@ -27,7 +35,7 @@ int get_line(char s[], int lim)
 	for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; i++)
 		s[i] = c;
 	if (c == '\n') {
-		s[i] == '\n';
+		s[i] = '\n';
 		i++;
 	}
 	s[i] = '\0';
@@ -39,6 +47,7 @@ void copy(char to[], char from[])
 {
 	int i;
 
+	i = 0;
 	while ((to[i] = from[i]) != '\0')
 		i++;
 }
@@ -83,7 +92,7 @@ int random(void)
 }
 
 /* srandom: set seed for random() */
-int srandom(unsigned int seed)
+void srandom(unsigned int seed)
 {
 	next = seed;
 }

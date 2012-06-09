@@ -1,8 +1,12 @@
-#include <stido.h>
+#include <stdio.h>
+
+#include "foo.h"
 
 int main(int argc, char *argv[])
 {
 	printf("hello, world.\n");
 
+
+	exit_pause();
 	return 0;
 }
