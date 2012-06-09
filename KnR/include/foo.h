@@ -3,7 +3,6 @@
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  *
- * The primary test function for K&R.
  *
  */
 

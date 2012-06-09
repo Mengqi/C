@@ -1,5 +1,15 @@
+/*
+ * foo.c
+ *
+ * Author: Mengqi Zong <zongmengqi@gmail.com>
+ *
+ * All functions here.
+ *
+ */
+
 #include <foo.h>
 
+/* wait for input before exit */
 void exit_pause(void)
 {
 	char buff[BUFFER_SIZE];

@@ -1,3 +1,12 @@
+/*
+ * knr.c
+ *
+ * Author: Mengqi Zong <zongmengqi@gmail.com>
+ *
+ * The main function.
+ *
+ */
+
 #include <stdio.h>
 
 #include "foo.h"
