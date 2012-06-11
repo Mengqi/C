@@ -7,15 +7,11 @@
  *
  */
 
-#include <stdio.h>
-
-#include "foo.h"
+#include <foo.h>
 
 int main(int argc, char *argv[])
 {
-	printf("hello, world.\n");
-
-
+	foo();
 	exit_pause();
 	return 0;
 }

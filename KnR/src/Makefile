@@ -2,7 +2,7 @@
 
 #
 # To modify: Modify macro "PROGRAM" and macro "SOURCES"
-# Note: Every time modification is made to header files,
+# Note: Every time a modification is made to header files,
 #	run "make clean" & "make".
 #
 # ----------------------------------------------------------
