@@ -1,0 +1,45 @@
+/**
+ * foo.c
+ *
+ * Author: Mengqi Zong <zongmengqi@gmail.com>
+ */
+
+/* (p27) power: raise base to n-th power; n >= 0 */
+int power(int base, int n)
+
+/* (p69) get_line: read a line into s, return length */
+int get_line(char s[], int lim)
+
+/* (p41) leap_year: return 1 if year is leap year; return 0 otherwise */
+int leap_year(int year)
+
+/* (p61) str2num: convert s to integer */
+int str2num(char s[])
+
+/* (p64) num2str: convert n to characters in s */
+void num2str(int n, char s[])
+
+/* (p43) lower_case: convert c to lower case; ASCII only */
+int lower_case(int c)
+
+/* (p46) random: return pseudo-random integer on 0..32767 */
+int random(void)
+
+/* (p49) get_bits: get n bits from position p */
+unsigned get_bits(unsigned x, int p, int n)
+
+/* (p50) bit_count: count 1 bits in x */
+int bit_count(unsigned x)
+
+/* (p58) bin_search: find x in v[0] <= v[1] <= ... <= v[n-1] */
+int bin_search(int x, int v[], int n)
+
+/* (p62) shell_sort: sort v[0]..v[n-1] into increasing order */
+void shell_sort(int v[], int n)
+
+/* (p62) reverse: reverse string s in place */
+void reverse(char s[])
+
+/* (p65) trim: remove trailing blanks, tabs, newlines */
+int trim(char s[])
+
