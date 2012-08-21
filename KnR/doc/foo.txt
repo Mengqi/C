@@ -43,12 +43,27 @@ void reverse(char s[])
 /* (p65) trim: remove trailing blanks, tabs, newlines */
 int trim(char s[])
 
+/* (p69) strindex: return index of t in s, -1 if none */
+int strindex(char s[], char t[])
+
 /* (p71) str2double: convert string s to double */
 double str2double(char s[])
 
 /* (p87) qsort: sort v[left]...v[right] into increasing order */
 void qsort(int v[], int left, int right)
 
-/* (p88) swap: interchange v[i] and v[j] */
-void swap(int v[], int i, int j)
+/* (p88) swap_v: interchange v[i] and v[j] */
+inline void swap_v(int v[], int i, int j)
+
+/* (p96) swap: interchange *px and *py */
+void swap(int *px, int *py);
+
+/* day_of_year: set day of year from mont & day */
+int day_of_year(int year, int month, int day)
+
+/* month_day: set month, day from day of year */
+void month_day(int year, int yearday, int *pmonth, int *pday)
+
+/* month_name: return name of n-th month */
+char *month_name(int n)
 

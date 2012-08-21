@@ -38,6 +38,10 @@ int trim(char s[]);
 int strindex(char s[], char t[]);
 double str2double(char s[]);
 void qsort(int v[], int left, int right);
-void swap(int v[], int i, int j);
+inline void swap_v(int v[], int i, int j);
+void swap(int *px, int *py);
+int day_of_year(int year, int month, int day);
+void month_day(int year, int yearday, int *pmonth, int *pday);
+char *month_name(int n);
 
 #endif /* __FOO_H */

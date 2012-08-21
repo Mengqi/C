@@ -82,7 +82,7 @@ int lower_case(int c)
 		return c;
 }
 
-unsigned long int next = 1;
+static unsigned long int next = 1;
 
 /* (p46) random: return pseudo-random integer on 0..32767 */
 int random(void)
@@ -212,30 +212,74 @@ double str2double(char s[])
 void qsort(int v[], int left, int right)
 {
 	int i, last;
-	void swap(int v[], int i, int j);
 
 	if (left >= right)  /* do nothing if array contains */
 		return;     /* fewer than two elements */
-	swap(v, left, (left + right)/2); /* move partition elem */
+	swap_v(v, left, (left + right)/2); /* move partition elem */
 	last = left;                     /* to v[0] */
 	for (i = left+1; i <= right; i++)
 		if (v[i] < v[left])
-			swap(v, ++last, i);
-	swap(v, left, last);	/* restore partition elem */
+			swap_v(v, ++last, i);
+	swap_v(v, left, last);	/* restore partition elem */
 	qsort(v, left, last-1);
 	qsort(v, last+1, right);
 }
 
-/* (p88) swap: interchange v[i] and v[j] */
-void swap(int v[], int i, int j)
+/* (p88) swap_v: interchange v[i] and v[j] */
+inline void swap_v(int v[], int i, int j)
+{
+	swap(v + i, v + j);
+}
+
+/* (p96) swap: interchange *px and *py */
+void swap(int *px, int *py)
 {
 	int temp;
 
-	temp = v[i];
-	v[i] = v[j];
-	v[j] = temp;
+	temp = *px;
+	*px = *py;
+	*py = temp;
 }
 
+static char daytab[2][13] = {
+	{0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
+	{0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30 ,31}
+};
 
+/* day_of_year: set day of year from mont & day */
+int day_of_year(int year, int month, int day)
+{
+	int i, leap;
 
+	leap = leap_year(year);
+	for (i = 1; i < month; i++)
+		day += daytab[leap][i];
+	return day;
+}
+
+/* month_day: set month, day from day of year */
+void month_day(int year, int yearday, int *pmonth, int *pday)
+{
+	int i, leap;
+
+	leap = leap_year(year);
+	for (i = 1; yearday > daytab[leap][i]; i++)
+		yearday -= daytab[leap][i];
+	*pmonth = i;
+	*pday = yearday;
+}
+
+/* month_name: return name of n-th month */
+char *month_name(int n)
+{
+	static char *name[] = {
+		"Illegal month",
+		"January", "February", "March",
+		"April", "May", "June",
+		"July", "August", "September",
+		"October", "November", "December"
+	};
+
+	return (n < 1 || n > 12) ? name[0] : name[n];
+}
 
