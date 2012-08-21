@@ -1,36 +1,12 @@
-/*
+/**
  * foo.c
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  *
  * All functions here.
- *
  */
 
-#include <stdio.h>
-#include <math.h>
-#include <ctype.h>
-#include <string.h>
-
 #include <foo.h>
-
-/* foo: put test code here */
-void foo(void)
-{
-	char buff[BUFFER_SIZE];
-	
-	num2str(123456, buff);
-	printf("str = %s", buff);
-}
-
-/* exit_pause: wait for input before exit */
-void exit_pause(void)
-{
-	char buff[BUFFER_SIZE];
-
-	printf("Press any key to exit...");
-	get_line(buff, BUFFER_SIZE);
-}
 
 /* (p27) power: raise base to n-th power; n >= 0 */
 int power(int base, int n)
@@ -42,17 +18,16 @@ int power(int base, int n)
 	return p;
 }
 
-/* (p29) get_line: read a line into s, return length */
+/* (p69) get_line: read a line into s, return length */
 int get_line(char s[], int lim)
 {
 	int c, i;
 
-	for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; i++)
-		s[i] = c;
-	if (c == '\n') {
-		s[i] = '\n';
-		i++;
-	}
+	i = 0;
+	while (--lim > 0 && (c = getchar()) != EOF && c != '\n')
+		s[i++] = c;
+	if (c == '\n')
+		s[i++] = '\n';
 	s[i] = '\0';
 	return i;
 }
@@ -66,7 +41,7 @@ int leap_year(int year)
 		return 0;
 }
 
-/* (p61) str2num: cnvert s to integer */
+/* (p61) str2num: convert s to integer */
 int str2num(char s[])
 {
 	int i, n, sign;
@@ -166,7 +141,7 @@ void shell_sort(int v[], int n)
 
 	for (gap = n/2; gap > 0; gap /= 2)
 		for (i = gap; i < n; i++)
-			for (j = i - gap; j >= 0 && v[j] > v[j+gap]; j -= gap) {
+			for (j=i-gap; j>=0 && v[j]>v[j+gap]; j -= gap) {
 				temp = v[j];
 				v[j] = v[j+gap];
 				v[j+gap] = temp;
@@ -196,4 +171,71 @@ int trim(char s[])
 	s[n+1] = '\0';
 	return n;
 }
+
+/* (p69) strindex: return index of t in s, -1 if none */
+int strindex(char s[], char t[])
+{
+	int i, j, k;
+
+	for (i = 0; s[i] != '\0'; i++) {
+		for (j=i, k=0; t[k]!='\0' && s[j]==t[k]; j++, k++)
+			;
+		if (k > 0 && t[k] == '\0')
+			return i;
+	}
+	return -1;
+}
+
+/* (p71) str2double: convert string s to double */
+double str2double(char s[])
+{
+	double val, power;
+	int i, sign;
+
+	for (i = 0; isspace(s[i]); i++) /* skip the white space */
+		;
+	sign = (s[i] == '-') ? -1 : 1;
+	if (s[i] == '+' || s[i] == '-')
+		i++;
+	for (val = 0.0; isdigit(s[i]); i++)
+		val = 10.0 * val + (s[i] - '0');
+	if (s[i] == '.')
+		i++;
+	for (power = 1.0; isdigit(s[i]); i++) {
+		val = 10.0 * val + (s[i] - '0');
+		power *= 10.0;
+	}
+	return sign * val / power;
+}
+
+/* (p87) qsort: sort v[left]...v[right] into increasing order */
+void qsort(int v[], int left, int right)
+{
+	int i, last;
+	void swap(int v[], int i, int j);
+
+	if (left >= right)  /* do nothing if array contains */
+		return;     /* fewer than two elements */
+	swap(v, left, (left + right)/2); /* move partition elem */
+	last = left;                     /* to v[0] */
+	for (i = left+1; i <= right; i++)
+		if (v[i] < v[left])
+			swap(v, ++last, i);
+	swap(v, left, last);	/* restore partition elem */
+	qsort(v, left, last-1);
+	qsort(v, last+1, right);
+}
+
+/* (p88) swap: interchange v[i] and v[j] */
+void swap(int v[], int i, int j)
+{
+	int temp;
+
+	temp = v[i];
+	v[i] = v[j];
+	v[j] = temp;
+}
+
+
+
 

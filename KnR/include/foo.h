@@ -8,6 +8,11 @@
 #ifndef __FOO_H
 #define __FOO_H
 
+#include <stdio.h>
+#include <math.h>
+#include <ctype.h>
+#include <string.h>
+
 #define BUFFER_SIZE 50
 #define POWER_BASE 2
 #define POWER_N 12
@@ -30,5 +35,9 @@ int bin_search(int x, int v[], int n);
 void shell_sort(int v[], int n);
 void reverse(char s[]);
 int trim(char s[]);
+int strindex(char s[], char t[]);
+double str2double(char s[]);
+void qsort(int v[], int left, int right);
+void swap(int v[], int i, int j);
 
 #endif /* __FOO_H */

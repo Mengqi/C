@@ -43,3 +43,12 @@ void reverse(char s[])
 /* (p65) trim: remove trailing blanks, tabs, newlines */
 int trim(char s[])
 
+/* (p71) str2double: convert string s to double */
+double str2double(char s[])
+
+/* (p87) qsort: sort v[left]...v[right] into increasing order */
+void qsort(int v[], int left, int right)
+
+/* (p88) swap: interchange v[i] and v[j] */
+void swap(int v[], int i, int j)
+
