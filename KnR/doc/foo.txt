@@ -63,6 +63,3 @@ void month_day(int year, int yearday, int *pmonth, int *pday)
 
 /* month_name: return name of n-th month */
 char *month_name(int n)
-
-/* (p143) str_dup: make a duplicate of s */
-char *str_dup(char *s)
