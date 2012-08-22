@@ -36,6 +36,8 @@ SOURCES	= knr.c foo.c nlist.c
 
 HOME = ..
 
+_DOCDIR = $(HOME)/doc
+
 _INCLUDEDIR = $(HOME)/include
 INCLUDEDIRS = \
 	-I $(_INCLUDEDIR)
@@ -107,5 +109,6 @@ run:
 .PHONY: clean
 
 clean:
-	rm -f $(PROGRAM) $(OBJECTS) *~ $(_INCLUDEDIR)/*~ $(_LIBDIR)/*~
+	rm -f $(PROGRAM) $(OBJECTS) *~ $(_INCLUDEDIR)/*~ $(_LIBDIR)/*~ \
+	$(_DOCDIR)/*~
 
