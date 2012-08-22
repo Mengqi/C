@@ -1,0 +1,3 @@
+
+/* (p145) install: put (name, defn) in hashtab */
+struct nlist *install(char *name, char *defn)

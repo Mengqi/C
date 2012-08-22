@@ -1,5 +1,5 @@
 /**
- * foo.c
+ * foo
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  */
@@ -21,9 +21,6 @@ void num2str(int n, char s[])
 
 /* (p43) lower_case: convert c to lower case; ASCII only */
 int lower_case(int c)
-
-/* (p46) random: return pseudo-random integer on 0..32767 */
-int random(void)
 
 /* (p49) get_bits: get n bits from position p */
 unsigned get_bits(unsigned x, int p, int n)
@@ -67,3 +64,5 @@ void month_day(int year, int yearday, int *pmonth, int *pday)
 /* month_name: return name of n-th month */
 char *month_name(int n)
 
+/* (p143) str_dup: make a duplicate of s */
+char *str_dup(char *s)

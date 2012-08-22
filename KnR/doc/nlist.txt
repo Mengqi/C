@@ -1,0 +1,14 @@
+/**
+ * nlist
+ *
+ * Author: Mengqi Zong <zongmengqi@gmail.com>
+ */
+
+/* (p144) hash: form hash value for string s */
+unsigned hash(char *s)
+
+/* (p145) lookup: look for s in hashtab */
+struct nlist *lookup(char *s)
+
+/* (p145) install: put (name, defn) in hashtab */
+struct nlist *install(char *name, char *defn)

@@ -1,8 +1,7 @@
-/*
+/**
  * foo.h
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
- *
  */
 
 #ifndef __FOO_H
@@ -12,6 +11,7 @@
 #include <math.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define BUFFER_SIZE 50
 #define POWER_BASE 2
@@ -27,8 +27,6 @@ int leap_year(int year);
 int str2num(char s[]);
 void num2str(int n, char s[]);
 int lower_case(int c);
-int random(void);
-void srandom(unsigned int seed);
 unsigned get_bits(unsigned x, int p, int n);
 int bit_count(unsigned x);
 int bin_search(int x, int v[], int n);
@@ -37,7 +35,7 @@ void reverse(char s[]);
 int trim(char s[]);
 int strindex(char s[], char t[]);
 double str2double(char s[]);
-void qsort(int v[], int left, int right);
+void quick_sort(int v[], int left, int right);
 inline void swap_v(int v[], int i, int j);
 void swap(int *px, int *py);
 int day_of_year(int year, int month, int day);

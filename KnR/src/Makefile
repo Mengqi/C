@@ -19,7 +19,7 @@ PROGRAM	= knr
 # The SOURCES macro contains a list of source files.
 #
 
-SOURCES	= knr.c foo.c
+SOURCES	= knr.c foo.c nlist.c
 
 #
 # The HOME macro is the home directory of the program.

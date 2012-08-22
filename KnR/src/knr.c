@@ -7,17 +7,14 @@
  */
 
 #include <foo.h>
+#include <nlist.h>
 
 void foo(void);
 void pause_before_exit(void);
 
 int main(int argc, char *argv[])
 {
-	int i;
-
-	for (i = 1; i < argc; i++)
-		printf("%s%s", argv[i], (i < argc-1) ? " " : "");
-	printf("\n");
+	foo();
 	pause_before_exit();
 	return 0;
 }
@@ -25,9 +22,21 @@ int main(int argc, char *argv[])
 /* foo: put all test code here */
 void foo(void)
 {
-	char buff[BUFFER_SIZE];
+	int i;
+	char *pair[4][2] = {
+		"auto", "0",
+		"break", "1",
+		"case", "2",
+		"char", "3"
+	};
+	struct nlist *temp;
 
-	printf("%s\n", month_name(11));
+	for (i = 0; i < 4; i++)
+		install(pair[i][0], pair[i][1]);
+	for (i = 0; i < 4; i++) {
+		temp = lookup(pair[i][0]);
+		printf("name = %s, defn = %s\n", temp->name, temp->defn);
+	}
 }
 
 /* pause_before_exit: pause and wait for input before exiting */

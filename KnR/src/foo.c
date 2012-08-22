@@ -82,21 +82,6 @@ int lower_case(int c)
 		return c;
 }
 
-static unsigned long int next = 1;
-
-/* (p46) random: return pseudo-random integer on 0..32767 */
-int random(void)
-{
-	next = next * 1103515245 + 12345;
-	return (unsigned int)(next/65536) % 32767;
-}
-
-/* (p46) srandom: set seed for random() */
-void srandom(unsigned int seed)
-{
-	next = seed;
-}
-
 /* (p49) get_bits: get n bits from position p */
 unsigned get_bits(unsigned x, int p, int n)
 {
@@ -208,8 +193,8 @@ double str2double(char s[])
 	return sign * val / power;
 }
 
-/* (p87) qsort: sort v[left]...v[right] into increasing order */
-void qsort(int v[], int left, int right)
+/* (p87) quick_sort: sort v[left]...v[right] into increasing order */
+void quick_sort(int v[], int left, int right)
 {
 	int i, last;
 
@@ -221,8 +206,8 @@ void qsort(int v[], int left, int right)
 		if (v[i] < v[left])
 			swap_v(v, ++last, i);
 	swap_v(v, left, last);	/* restore partition elem */
-	qsort(v, left, last-1);
-	qsort(v, last+1, right);
+	quick_sort(v, left, last-1);
+	quick_sort(v, last+1, right);
 }
 
 /* (p88) swap_v: interchange v[i] and v[j] */
@@ -282,4 +267,5 @@ char *month_name(int n)
 
 	return (n < 1 || n > 12) ? name[0] : name[n];
 }
+
 
