@@ -1,4 +1,4 @@
-/*
+/**
  * knr.c
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
@@ -9,42 +9,38 @@
 #include <foo.h>
 #include <nlist.h>
 
-void foo(void);
-void pause_before_exit(void);
-
+/* cat: concatenate files */
 int main(int argc, char *argv[])
 {
-	foo();
-	pause_before_exit();
-	return 0;
-}
+	FILE *fp;
+	void filecopy(FILE *, FILE *);
+	char *prog = argv[0];	/* program name for errors */
 
-/* foo: put all test code here */
-void foo(void)
-{
-	int i;
-	char *pair[4][2] = {
-		"auto", "0",
-		"break", "1",
-		"case", "2",
-		"char", "3"
-	};
-	struct nlist *temp;
-
-	for (i = 0; i < 4; i++)
-		install(pair[i][0], pair[i][1]);
-	for (i = 0; i < 4; i++) {
-		temp = lookup(pair[i][0]);
-		printf("name = %s, defn = %s\n", temp->name, temp->defn);
+	if (argc == 1) /* no args; copy standard input */
+		filecopy(stdin, stdout);
+	else
+		while (--argc > 0)
+			if ((fp = fopen(*++argv, "r")) == NULL) {
+				fprintf(stderr, "%s: can't open %s\n",
+					prog, *argv);
+				exit(1);
+			} else {
+				filecopy(fp, stdout);
+				fclose(fp);
+			}
+	if (ferror(stdout)) {
+		fprintf(stderr, "%s: error writing stdout\n", prog);
+		exit(2);
 	}
+	exit(0);
 }
 
-/* pause_before_exit: pause and wait for input before exiting */
-void pause_before_exit(void)
+/* filecopy: copy file ifp to fill ofp */
+void filecopy(FILE *ifp, FILE *ofp)
 {
-	char buff[BUFFER_SIZE];
+	int c;
 
-	printf("Press any key to exit...");
-	get_line(buff, BUFFER_SIZE);
+	while ((c = getc(ifp)) != EOF)
+		putc(c, ofp);
 }
 

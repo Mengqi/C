@@ -55,11 +55,14 @@ inline void swap_v(int v[], int i, int j)
 /* (p96) swap: interchange *px and *py */
 void swap(int *px, int *py);
 
-/* day_of_year: set day of year from mont & day */
+/* (p111) day_of_year: set day of year from mont & day */
 int day_of_year(int year, int month, int day)
 
-/* month_day: set month, day from day of year */
+/* (p111) month_day: set month, day from day of year */
 void month_day(int year, int yearday, int *pmonth, int *pday)
 
-/* month_name: return name of n-th month */
+/* (p113) month_name: return name of n-th month */
 char *month_name(int n)
+
+/* (p156) minprintf: minimal printf with variable argument list */
+void minprintf(char *fmt, ...)

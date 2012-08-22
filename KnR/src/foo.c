@@ -6,6 +6,8 @@
  * All functions here.
  */
 
+#include <stdarg.h>	/* miniprintf */
+
 #include <foo.h>
 
 /* (p27) power: raise base to n-th power; n >= 0 */
@@ -231,7 +233,7 @@ static char daytab[2][13] = {
 	{0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30 ,31}
 };
 
-/* day_of_year: set day of year from mont & day */
+/* (p111) day_of_year: set day of year from mont & day */
 int day_of_year(int year, int month, int day)
 {
 	int i, leap;
@@ -242,7 +244,7 @@ int day_of_year(int year, int month, int day)
 	return day;
 }
 
-/* month_day: set month, day from day of year */
+/* (p111) month_day: set month, day from day of year */
 void month_day(int year, int yearday, int *pmonth, int *pday)
 {
 	int i, leap;
@@ -254,7 +256,7 @@ void month_day(int year, int yearday, int *pmonth, int *pday)
 	*pday = yearday;
 }
 
-/* month_name: return name of n-th month */
+/* (p113) month_name: return name of n-th month */
 char *month_name(int n)
 {
 	static char *name[] = {
@@ -266,6 +268,41 @@ char *month_name(int n)
 	};
 
 	return (n < 1 || n > 12) ? name[0] : name[n];
+}
+
+/* (p156) minprintf: minimal printf with variable argument list */
+void minprintf(char *fmt, ...)
+{
+	va_list ap;	/* points to each unnamed arg in turn */
+	char *p, *sval;
+	int ival;
+	double dval;
+
+	va_start(ap, fmt);	/* make ap point to 1st unnamed arg */
+	for (p = fmt; *p; p++) {
+		if (*p != '%') {
+			putchar(*p);
+			continue;
+		}
+		switch (*++p) {
+		case 'd':
+			ival = va_arg(ap, int);
+			printf("%d", ival);
+			break;
+		case 'f':
+			dval = va_arg(ap, double);
+			printf("%f", dval);
+			break;
+		case 's':
+			for (sval = va_arg(ap, char *); *sval; sval++)
+				putchar(*sval);
+			break;
+		default:
+			putchar(*p);
+			break;
+		}
+	}
+	va_end(ap);	/* clean up when done */
 }
 
 

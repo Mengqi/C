@@ -41,5 +41,7 @@ void swap(int *px, int *py);
 int day_of_year(int year, int month, int day);
 void month_day(int year, int yearday, int *pmonth, int *pday);
 char *month_name(int n);
+void minprintf(char *fmt, ...);
+
 
 #endif /* __FOO_H */
