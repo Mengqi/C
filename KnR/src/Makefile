@@ -16,10 +16,11 @@
 PROGRAM	= knr
 
 #
-# The SOURCES macro contains a list of source files.
+# The SOURCES macro contains a list of code source files.
 #
 
-SOURCES	= knr.c foo.c nlist.c memory_alloc.c
+SOURCES = knr.c foo.c nlist.c memory_alloc.c linked_list.c \
+	  linked_list_test.c
 
 #
 # The HOME macro is the home directory of the program.
@@ -33,20 +34,23 @@ SOURCES	= knr.c foo.c nlist.c memory_alloc.c
 # The LIBS macro contains a list of libraries that the executable
 # must be linked against.
 #
+# The DOCDIR macro contains the directory of documents.
+#
+#
 
 HOME = ..
 
-_DOCDIR = $(HOME)/doc
-
 _INCLUDEDIR = $(HOME)/include
 INCLUDEDIRS = \
-	-I $(_INCLUDEDIR)
+	      -I $(_INCLUDEDIR)
 
 _LIBDIR = $(HOME)/lib
 LIBDIRS	= \
-	-L $(_LIBDIR)
+	  -L $(_LIBDIR)
 
 LIBS = -lm
+
+DOCDIR = $(HOME)/doc
 
 #
 # The OBJECTS macro converts the SOURCES macro into a list of
@@ -62,7 +66,7 @@ LIBS = -lm
 # directory information to be passed to the linker.
 #
 
-OBJECTS	= $(SOURCES:.c=.o)
+OBJECTS = $(SOURCES:.c=.o)
 
 CC	= gcc
 CFLAGS	= -DESRI_UNIX $(INCLUDEDIRS)
@@ -88,7 +92,7 @@ $(PROGRAM): $(OBJECTS)
 # a list of commands for compilation.
 #
 
-%.o: %.c
+$(OBJDIR)%.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 #

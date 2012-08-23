@@ -8,8 +8,13 @@
 
 #include <stdio.h>
 
+#include "linked_list_test.h"
+
 int main(int argc, char *argv[])
 {
-	printf("hello, world.\n");
+	linked_list_test();
+
+	return 0;
 }
+
 
