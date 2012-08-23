@@ -3,7 +3,7 @@
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  *
- * The table-lookup package
+ * Description: The table-lookup package
  */
 
 #include <stdio.h>

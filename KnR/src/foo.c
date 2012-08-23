@@ -3,7 +3,7 @@
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  *
- * Functions from K&R.
+ * Description: Functions from K&R.
  */
 
 #include <ctype.h>

@@ -3,7 +3,7 @@
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  *
- * The main function.
+ * Description: The main function.
  */
 
 #include <stdio.h>

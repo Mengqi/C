@@ -3,7 +3,7 @@
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  *
- * A storage allocator from K&R
+ * Description: A storage allocator from K&R
  */
 
 #include <stdio.h>
