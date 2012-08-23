@@ -3,13 +3,15 @@
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  *
- * A storage allocator
+ * A storage allocator from K&R
  */
 
-#include <memory_alloc.h>
+#include <stdio.h>
+
+#include "memory_alloc.h"
 
 static Header base;	/* empty list to get started */
-static Header *freep = NULL; 	/* start of free list */
+static Header *freep = NULL;	/* start of free list */
 
 static Header *morecore(unsigned nu);
 
@@ -35,7 +37,7 @@ void *memory_alloc(unsigned nbytes)
 			}
 			freep = prevp;
 			return (void *)(p+1);
-		}		
+		}
 		if (p == freep)	/* wrapped around free list */
 			if ((p = morecore(nunits)) == NULL)
 				return NULL;	/* none left */
@@ -51,7 +53,7 @@ static Header *morecore(unsigned nu)
 	if (nu < NALLOC)
 		nu = NALLOC;
 	cp = sbrk(nu * sizeof(Header));
-	if (cp == (char *) - 1)	/* no space at all */
+	if (cp == (char *) -1)	/* no space at all */
 		return NULL;
 	up = (Header *) cp;
 	up->s.size = nu;

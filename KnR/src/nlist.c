@@ -6,8 +6,11 @@
  * The table-lookup package
  */
 
-#include <foo.h>
-#include <nlist.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include "nlist.h"
 
 /* (p144) hash: form hash value for string s */
 unsigned hash(char *s)

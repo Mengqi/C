@@ -4,11 +4,8 @@
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  */
 
-#ifndef __NLIST_H
-#define __NLIST_H
-
-#include <stdio.h>
-#include <stdlib.h>
+#ifndef _NLIST_H
+#define _NLIST_H
 
 struct nlist {		/* table entry: */
 	char *name;		/* defined name */
@@ -20,8 +17,9 @@ struct nlist {		/* table entry: */
 
 static struct nlist *hashtab[HASHSIZE];	/* pointer table */
 
+/* function declaration */
 unsigned hash(char *s);
 struct nlist *lookup(char *s);
 struct nlist *install(char *name, char *defn);
 
-#endif /* __NLIST_H */
+#endif /* _NLIST_H */

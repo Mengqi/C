@@ -4,10 +4,8 @@
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  */
 
-#ifndef __MEMORY_ALLOC_H
-#define __MEMORY_ALLOC_H
-
-#include <stdio.h>
+#ifndef _MEMORY_ALLOC_H
+#define _MEMORY_ALLOC_H
 
 #define NALLOC 1024	/* minimum #units to request */
 
@@ -23,8 +21,9 @@ union header {	/* block header */
 
 typedef union header Header;
 
+/* function declaration */
 void *memory_alloc(unsigned nbytes);
 void memory_free(void *ap);
 
 
-#endif /* __MEMORY_ALLOC_H */
+#endif /* _MEMORY_ALLOC_H */

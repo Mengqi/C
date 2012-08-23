@@ -3,22 +3,15 @@
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  *
- * All functions here.
+ * Functions from K&R.
  */
 
-#include <stdarg.h>	/* miniprintf */
+#include <ctype.h>
+#include <string.h>
+#include <stdlib.h>
+#include <stdarg.h>
 
-#include <foo.h>
-
-/* (p27) power: raise base to n-th power; n >= 0 */
-int power(int base, int n)
-{
-	int p;
-
-	for (p = 1; n > 0; n--)
-		p = p * base;
-	return p;
-}
+#include "foo.h"
 
 /* (p69) get_line: read a line into s, return length */
 int get_line(char s[], int lim)
@@ -43,14 +36,14 @@ int leap_year(int year)
 		return 0;
 }
 
-/* (p61) str2num: convert s to integer */
-int str2num(char s[])
+/* (p61) str2int: convert s to integer */
+int str2int(char s[])
 {
 	int i, n, sign;
 
 	for (i = 0; isspace(s[i]); i++)	/* skip white space */
 		;
-	sign = (s[i] == '-')? -1 : 1;
+	sign = (s[i] == '-') ? -1 : 1;
 	if (s[i] == '+' || s[i] == '-')	/* skip sign */
 		i++;
 	for (n = 0; isdigit(s[i]); i++)
@@ -58,8 +51,8 @@ int str2num(char s[])
 	return sign * n;
 }
 
-/* (p64) num2str: convert n to characters in s */
-void num2str(int n, char s[])
+/* (p64) int2str: convert n to characters in s */
+void int2str(int n, char s[])
 {
 	int i, sign;
 
@@ -73,15 +66,6 @@ void num2str(int n, char s[])
 		s[i++] = '-';
 	s[i] = '\0';
 	reverse(s);
-}
-
-/* (p43) lower_case: convert c to lower case; ASCII only */
-int lower_case(int c)
-{
-	if (c >= 'A' && c <= 'Z')
-		return c + 'a' - 'A';
-	else
-		return c;
 }
 
 /* (p49) get_bits: get n bits from position p */
@@ -108,7 +92,7 @@ int bin_search(int x, int v[], int n)
 	int low, high, mid;
 
 	low = 0;
-	high = n -1;
+	high = n - 1;
 	while (low <= high) {
 		mid = (low + high) / 2;
 		if (x < v[mid])
@@ -128,7 +112,7 @@ void shell_sort(int v[], int n)
 
 	for (gap = n/2; gap > 0; gap /= 2)
 		for (i = gap; i < n; i++)
-			for (j=i-gap; j>=0 && v[j]>v[j+gap]; j -= gap) {
+			for (j = i-gap; j >= 0 && v[j] > v[j+gap]; j -= gap) {
 				temp = v[j];
 				v[j] = v[j+gap];
 				v[j+gap] = temp;
@@ -165,7 +149,7 @@ int strindex(char s[], char t[])
 	int i, j, k;
 
 	for (i = 0; s[i] != '\0'; i++) {
-		for (j=i, k=0; t[k]!='\0' && s[j]==t[k]; j++, k++)
+		for (j = i, k = 0; t[k] != '\0' && s[j] == t[k]; j++, k++)
 			;
 		if (k > 0 && t[k] == '\0')
 			return i;
@@ -230,7 +214,7 @@ void swap(int *px, int *py)
 
 static char daytab[2][13] = {
 	{0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31},
-	{0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30 ,31}
+	{0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}
 };
 
 /* (p111) day_of_year: set day of year from mont & day */
@@ -305,4 +289,12 @@ void minprintf(char *fmt, ...)
 	va_end(ap);	/* clean up when done */
 }
 
+/* (p162) file_copy: copy file ifp to fill ofp */
+void file_copy(FILE *ifp, FILE *ofp)
+{
+	int c;
+
+	while ((c = getc(ifp)) != EOF)
+		putc(c, ofp);
+}
 
