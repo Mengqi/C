@@ -17,7 +17,7 @@ struct contact_book *create_contact_book(void)
 {
 	struct contact_book *book;
 
-	book = (struct contact_book*)malloc(sizeof(struct contact_book));
+	book = (struct contact_book *) malloc(sizeof(struct contact_book));
 	/* not enough memory */
 	if (book == NULL)
 		return NULL;
@@ -41,16 +41,15 @@ int add_new_contact(struct contact_book *book)
 
 	page = create_contact_page();
 
-	if (page == NULL) {
+	if (page == NULL)
 		return 0;
-	} else {
+	else
 		add_contact_page_at_beginning(book, page);
-	}
 
 	return 1;
 }
 
-/* 
+/*
  * Create a new contact page, this processdure requires
  * user to input information of the new contact
  */
@@ -138,7 +137,7 @@ int add_contact_page_at_end(struct contact_book *book,
 	if (book->head == NULL) {
 		/* if list is empty, add page at head directly */
 		book->head = page;
-		page->next =NULL;
+		page->next = NULL;
 	} else {
 		temp = book->head;
 		/* traverse down to the end of the list */
@@ -176,7 +175,6 @@ int add_contact_page_at_pos(struct contact_book *book, int pos,
 
 		prev_ptr->next = page;
 		page->next = cur_ptr;
-		
 		book->contact_num++;
 	}
 
@@ -190,7 +188,7 @@ int delete_contact_page_by_name(struct contact_book *book, char *name)
 
 	cur_ptr = book->head;
 
-	while(cur_ptr != NULL) {
+	while (cur_ptr != NULL) {
 		if (strcmp(cur_ptr->c->name, name) == 0) {
 			if (cur_ptr == book->head) {
 				book->head = book->head->next;
@@ -300,23 +298,25 @@ void display_contact_book_by_name(struct contact_book *book, char *name)
 	} else {
 		while (cur_ptr != NULL) {
 			if (strcmp(name, cur_ptr->c->name) == 0) {
-				printf("************ Contact %d ************\n", i);
+				printf("************ Contact %d ************\n",
+				       i);
 				display_contact(cur_ptr->c);
 				find_num++;
 			}
 			i++;
 			cur_ptr = cur_ptr->next;
 		}
-		if (find_num == 0) {
-			printf("No contact was found with the specified conditon.\n");
-		} else {
+		if (find_num == 0)
+			printf("No contact was found with the specified"
+			       " conditon.\n");
+		else
 			printf("***********************************\n");
-		}
 	}
 }
 
 /* Display contacts in the contact book that have the specified phone number */
-void display_contact_book_by_phone_number(struct contact_book *book, char *phone)
+void display_contact_book_by_phone_number(struct contact_book *book,
+					  char *phone)
 {
 	struct contact_page *cur_ptr;
 	int i, find_num;
@@ -330,18 +330,19 @@ void display_contact_book_by_phone_number(struct contact_book *book, char *phone
 	} else {
 		while (cur_ptr != NULL) {
 			if (strcmp(phone, cur_ptr->c->phone_number) == 0) {
-				printf("************ Contact %d ************\n", i);
+				printf("************ Contact %d ************\n",
+				       i);
 				display_contact(cur_ptr->c);
 				find_num++;
 			}
 			i++;
 			cur_ptr = cur_ptr->next;
 		}
-		if (find_num == 0) {
-			printf("No contact was found with the specified conditon.\n");
-		} else {
+		if (find_num == 0)
+			printf("No contact was found with the specified"
+			       " conditon.\n");
+		else
 			printf("***********************************\n");
-		}
 	}
 }
 
@@ -360,18 +361,19 @@ void display_contact_book_by_email(struct contact_book *book, char *email)
 	} else {
 		while (cur_ptr != NULL) {
 			if (strcmp(email, cur_ptr->c->email) == 0) {
-				printf("************ Contact %d ************\n", i);
+				printf("************ Contact %d ************\n",
+				       i);
 				display_contact(cur_ptr->c);
 				find_num++;
 			}
 			i++;
 			cur_ptr = cur_ptr->next;
 		}
-		if (find_num == 0) {
-			printf("No contact was found with the specified conditon.\n");
-		} else {
+		if (find_num == 0)
+			printf("No contact was found with the specified"
+			       " conditon.\n");
+		else
 			printf("***********************************\n");
-		}
 	}
 }
 
@@ -390,18 +392,19 @@ void display_contact_book_by_qq_number(struct contact_book *book, char *qq)
 	} else {
 		while (cur_ptr != NULL) {
 			if (strcmp(qq, cur_ptr->c->qq_number) == 0) {
-				printf("************ Contact %d ************\n", i);
+				printf("************ Contact %d ************\n",
+				       i);
 				display_contact(cur_ptr->c);
 				find_num++;
 			}
 			i++;
 			cur_ptr = cur_ptr->next;
 		}
-		if (find_num == 0) {
-			printf("No contact was found with the specified conditon.\n");
-		} else {
+		if (find_num == 0)
+			printf("No contact was found with the specified"
+			       " conditon.\n");
+		else
 			printf("***********************************\n");
-		}
 	}
 }
 
@@ -412,7 +415,8 @@ int write_contact_book_to_file(struct contact_book *book, char *file_name)
 	FILE *fp;
 	int i, num;
 
-	if ((fp = fopen(file_name, "w")) == NULL)
+	fp = fopen(file_name, "w");
+	if (fp == NULL)
 		return 0;
 
 	/* write contact_num to file */
@@ -443,7 +447,8 @@ int read_contact_book_from_file(struct contact_book *book, char *file_name)
 	FILE *fp;
 	int i, num;
 
-	if ((fp = fopen(file_name, "r")) == NULL)
+	fp = fopen(file_name, "r");
+	if (fp == NULL)
 		return 0;
 
 	/* read contact_num from file */
@@ -464,7 +469,7 @@ int read_contact_book_from_file(struct contact_book *book, char *file_name)
 	return 1;
 }
 
-/* 
+/*
  * Read a single contact from the file. Then create a new contact_page
  * for the contact, add it to the contact_book
  */
@@ -476,7 +481,7 @@ int read_contact_from_file(struct contact_book *book, FILE *fp)
 	page = (struct contact_page *)malloc(sizeof(struct contact_page));
 	/* not enough memory for contact_page */
 	if (page == NULL)
-		return 0;	
+		return 0;
 
 	c = (struct contact *)malloc(sizeof(struct contact));
 	/* not enough memory for contact */
@@ -549,11 +554,13 @@ int sort_contact_book_by_name(struct contact_book *book, int mode)
 			switch_flag = 0;
 			if (mode == 0) {
 				/* ascending order, use '>' */
-				if (strcmp(cur_ptr->c->name, after_ptr->c->name) > 0)
+				if (strcmp(cur_ptr->c->name,
+					   after_ptr->c->name) > 0)
 					switch_flag = 1;
 			} else {
 				/* descdening order, use '<' */
-				if (strcmp(cur_ptr->c->name, after_ptr->c->name) < 0)
+				if (strcmp(cur_ptr->c->name,
+					   after_ptr->c->name) < 0)
 					switch_flag = 1;
 			}
 
@@ -574,8 +581,9 @@ int sort_contact_book_by_name(struct contact_book *book, int mode)
 					cur_ptr->next = after_ptr->next;
 					after_ptr->next = cur_ptr;
 					prev_ptr->next = after_ptr;
-					/* since two ptr have changed their position,
-					 * they have to swap their names */
+					/* since two ptr have changed their
+					 * position,they have to swap their
+					 * names */
 					temp = after_ptr;
 					after_ptr = cur_ptr;
 					cur_ptr = temp;

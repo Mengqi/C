@@ -1,4 +1,4 @@
-/*
+/**
  * thesis.c
  *
  * The main function.
@@ -13,7 +13,7 @@
 #include "contact_book.h"
 #include "project_tools.h"
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	struct contact_book *book;
 

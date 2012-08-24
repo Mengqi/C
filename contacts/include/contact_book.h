@@ -33,7 +33,8 @@ int delete_contact_page_by_pos(struct contact_book *book, int pos);
 void display_contact_book(struct contact_book *book);
 void list_contact_name(struct contact_book *book);
 void display_contact_book_by_name(struct contact_book *book, char *name);
-void display_contact_book_by_phone_number(struct contact_book *book, char *phone);
+void display_contact_book_by_phone_number(struct contact_book *book,
+					  char *phone);
 void display_contact_book_by_email(struct contact_book *book, char *email);
 void display_contact_book_by_qq_number(struct contact_book *book, char *qq);
 int write_contact_book_to_file(struct contact_book *book, char *file_name);

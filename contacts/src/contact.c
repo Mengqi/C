@@ -123,7 +123,7 @@ int check_email_format(char *email)
 {
 	int pos, pos_at, count_at, count_dot;
 
-	/* If the email is empty, then it is valid 
+	/* If the email is empty, then it is valid
 	 * Note that '\n' counts as a character
 	 */
 	if (strlen(email) == 1)
@@ -147,16 +147,13 @@ int check_email_format(char *email)
 
 	/* check '.' */
 	count_dot = 0;
-	for (pos = pos_at; pos <= strlen(email); pos++) {
-		if (email[pos] == '.') {
+	for (pos = pos_at; pos <= strlen(email); pos++)
+		if (email[pos] == '.')
 			count_dot++;
-		}
-	}
-	if (count_dot > 0 && count_dot <= 3) {
+	if (count_dot > 0 && count_dot <= 3)
 		return 1;
-	} else {
+	else
 		return 0;
-	}
 }
 
 void input_qq_number(char *buffer, struct contact *c)

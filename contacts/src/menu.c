@@ -36,7 +36,7 @@ void menu(struct contact_book *book)
 	int num;
 
 	num = 0;
-	while (num != 9) {	
+	while (num != 9) {
 		display_main_menu();
 		num = menu_option();
 		printf("\n");
@@ -47,19 +47,19 @@ void menu(struct contact_book *book)
 /* display the UI of the main menu */
 void display_main_menu(void)
 {
-		/* display main menu */
-		printf("****************** MENU ********************\n");
-		printf(">> 1. List Contact Names\n");
-		printf(">> 2. Display Detailed Contact Info\n");
-		printf(">> 3. Add Contact\n");
-		printf(">> 4. Edit Contact\n");
-		printf(">> 5. Delete Contact\n");
-		printf(">> 6. Search Contact\n");
-		printf(">> 7. Sort Contact Book\n");
-		printf(">> 8. About\n");
-		printf(">> 9. Exit\n");
-		printf("********************************************\n");
-		printf("Input option: ");
+	/* display main menu */
+	printf("****************** MENU ********************\n");
+	printf(">> 1. List Contact Names\n");
+	printf(">> 2. Display Detailed Contact Info\n");
+	printf(">> 3. Add Contact\n");
+	printf(">> 4. Edit Contact\n");
+	printf(">> 5. Delete Contact\n");
+	printf(">> 6. Search Contact\n");
+	printf(">> 7. Sort Contact Book\n");
+	printf(">> 8. About\n");
+	printf(">> 9. Exit\n");
+	printf("********************************************\n");
+	printf("Input option: ");
 }
 
 /* return the int type option */
@@ -77,7 +77,7 @@ int menu_option(void)
 /* function about the action of the main menu */
 void main_menu_action(struct contact_book *book, int num)
 {
-	switch(num) {
+	switch (num) {
 	case 1:
 		list_contact_name(book);
 		menu_pause();
@@ -124,8 +124,8 @@ void menu_pause(void)
 	printf("\n");
 }
 
-/* 
- * Function of editing the contact in the given 
+/*
+ * Function of editing the contact in the given
  * position of contact book
  */
 void edit_contact_book_by_pos(struct contact_book *book)
@@ -149,7 +149,7 @@ void delete_contact_menu(struct contact_book *book)
 	int num;
 
 	num = 0;
-	while (num != 9) {	
+	while (num != 9) {
 		display_delete_contact_menu();
 		num = menu_option();
 		printf("\n");
@@ -171,7 +171,7 @@ void display_delete_contact_menu(void)
 
 void delete_contact_menu_action(struct contact_book *book, int num)
 {
-	switch(num) {
+	switch (num) {
 	case 1:
 		delete_contact_book_by_name(book);
 		menu_pause();
@@ -199,11 +199,10 @@ void delete_contact_book_by_name(struct contact_book *book)
 	get_line(buffer, BUFFER_SIZE);
 
 	printf("\n");
-	if (delete_contact_page_by_name(book, buffer) == 0) {
+	if (delete_contact_page_by_name(book, buffer) == 0)
 		printf("Contact not found.\n");
-	} else {
+	else
 		printf("Deleted.\n");
-	}
 }
 
 void delete_contact_book_by_pos(struct contact_book *book)
@@ -212,16 +211,15 @@ void delete_contact_book_by_pos(struct contact_book *book)
 
 	list_contact_name(book);
 
-	printf("Input contact index (0 to quit): ");
+	printf("Input position (0 to quit): ");
 	num = menu_option();
 
 	if (num != 0) {
 		printf("\n");
-		if (delete_contact_page_by_pos(book, num) == 0) {
-			printf("[ERROR] invalid index %d.\n", num);
-		} else {
+		if (delete_contact_page_by_pos(book, num) == 0)
+			printf("[ERROR] invalid position %d.\n", num);
+		else
 			printf("Deleted.\n");
-		}
 	}
 }
 
@@ -229,7 +227,8 @@ void delete_all_contacts(struct contact_book *book)
 {
 	char option[OPTION_LENGTH];
 
-	printf("Do you want to delete ALL contacts in the contact book? (Y/N) ");
+	printf("Do you want to delete ALL contacts"
+	       " in the contact book? (Y/N) ");
 	get_line(option, OPTION_LENGTH);
 	if (option[0] == 'Y' || option[0] == 'y') {
 		remove_all_contacts(book);
@@ -244,7 +243,7 @@ void search_contact_menu(struct contact_book *book)
 	int num;
 
 	num = 0;
-	while (num != 9) {	
+	while (num != 9) {
 		display_search_contact_menu();
 		num = menu_option();
 		printf("\n");
@@ -267,7 +266,7 @@ void display_search_contact_menu(void)
 
 void search_contact_menu_action(struct contact_book *book, int num)
 {
-	switch(num) {
+	switch (num) {
 	case 1:
 		search_contact_by_name(book);
 		menu_pause();
@@ -306,7 +305,6 @@ void search_contact_by_phone_number(struct contact_book *book)
 
 	printf("Input contact phone number: ");
 	get_line(buffer, BUFFER_SIZE);
-	
 	printf("\n");
 	display_contact_book_by_phone_number(book, buffer);
 }
@@ -338,7 +336,7 @@ void sort_contact_menu(struct contact_book *book)
 	int num;
 
 	num = 0;
-	while (num != 9) {	
+	while (num != 9) {
 		display_sort_contact_menu();
 		num = menu_option();
 		printf("\n");
@@ -359,7 +357,7 @@ void display_sort_contact_menu(void)
 
 void sort_contact_menu_action(struct contact_book *book, int num)
 {
-	switch(num) {
+	switch (num) {
 	case 1:
 		sort_by_name_ascend(book);
 		menu_pause();
