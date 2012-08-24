@@ -18,13 +18,15 @@ struct linked_list {
 	int count;	/* number of nodes */
 };
 
+/* function declaration */
 struct linked_list *init_list(void);
 struct list_node *init_list_node(int number);
 void insert_list_node(struct linked_list *list, struct list_node *node);
 void append_list_node(struct linked_list *list, struct list_node *node);
 int add_list_node_by_pos(struct linked_list *list, struct list_node *node,
 			 int pos);
-struct list_node *search_list_node_by_num(struct linked_list *list, int number);
+struct list_node *search_list_node_by_num(struct linked_list *list,
+					  int number);
 struct list_node *search_list_node_by_pos(struct linked_list *list, int pos);
 int delete_list_node_by_num(struct linked_list *list, int number);
 int delete_list_node_by_pos(struct linked_list *list, int pos);

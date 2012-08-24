@@ -10,6 +10,7 @@
 #define BUFFER_SIZE 2048
 #define OPTION_LENGTH 32
 
+/* function declaration */
 void linked_list_test(void);
 struct linked_list *pre_process(void);
 void menu(struct linked_list *list);
