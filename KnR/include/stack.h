@@ -13,17 +13,25 @@ typedef int data_type_s;	/* modify data type here */
 
 #define PRINT_ARG_S "%d"	/* print argument of data_type_s */
 
+struct stack_node {
+	data_type_s data;
+	struct stack_node *prev;
+	struct stack_node *next;
+};
+
 struct stack {
-	data_type_s v[DEFAULT_STACK_SIZE];
-	int top;
+	struct stack_node *head;
+	struct stack_node *tail;
+	int count;
 };
 
 /* function declaration */
 struct stack *init_stack(void);
-void stack_push(struct stack *s, data_type_s val);
+struct stack_node *init_stack_node(data_type_s d);
+int stack_push(struct stack *s, data_type_s d);
 data_type_s stack_pop(struct stack *s);
 int stack_empty(struct stack *s);
-int stack_full(struct stack *s);
+void free_stack_node(struct stack_node *node);
 void free_stack(struct stack *s);
 void print_stack(struct stack *s);
 

@@ -3,7 +3,7 @@
  *
  * Author: Mengqi Zong <zongmengqi@gmail.com>
  *
- * Description: A template of stack.
+ * Description: A template of stack, doubly linked list version.
  *
  * Note: All functions assume the given stack is _not_ NULL.
  */
@@ -21,47 +21,94 @@ struct stack *init_stack(void)
 	s = (struct stack *) malloc(sizeof(struct stack));
 	if (s == NULL)
 		return NULL;
-	s->top = 0;
+	s->head = NULL;
+	s->tail = NULL;
+	s->count = 0;
 	return s;
 }
 
-/* stack_push: push one element into the stack */
-void stack_push(struct stack *s, data_type_s val)
+/* init_stack_node: initialize a new stack node with data */
+struct stack_node *init_stack_node(data_type_s d)
 {
-	if (stack_full(s) == 1) {	/* stack already full */
-		perror("Invalid push: Stack is full\n");
-		exit(1);
+	struct stack_node *p;
+
+	p = (struct stack_node *) malloc(sizeof(struct stack_node));
+	if (p == NULL)
+		return NULL;
+	p->data = d;
+	p->prev = NULL;
+	p->next = NULL;
+	return p;
+}
+
+/* stack_push: push one element into the stack */
+int stack_push(struct stack *s, data_type_s d)
+{
+	struct stack_node *p;
+
+	p = init_stack_node(d);
+	if (p == NULL)
+		return -1;
+	if (s->head == NULL) {	/* if the stack is empty */
+		s->head = p;
+		s->tail = p;
+		p->prev = NULL;	/* 1st node's prev is NULL */
+	} else {
+		s->tail->next = p;
+		p->prev = s->tail;
+		s->tail = p;
 	}
-	s->v[s->top] = val;
-	s->top++;
+	s->count++;
+	return 0;
 }
 
 /* stack_pop: pop one element from the stack */
 data_type_s stack_pop(struct stack *s)
 {
-	if (stack_empty(s) == 1) {	/* stack already empty */
+	struct stack_node *temp;
+	data_type_s d;
+
+	if (stack_empty(s) == 1) {	/* stack is already empty */
 		perror("Invalid pop: Stack is empty\n");
 		exit(1);
 	}
-	s->top--;
-	return s->v[s->top];
+	if (s->head == s->tail)	/* only one node in the stack */
+		s->head = NULL;
+
+	temp = s->tail;
+	s->tail = temp->prev;	/* if stack becomes empty, tail == NULL */
+	if (s->tail != NULL)
+		s->tail->next = NULL;
+	d = temp->data;
+	free_stack_node(temp);
+	s->count--;
+
+	return d;
 }
 
 /* stack_empty: return 1 if stack is empty, otherwise 0 */
 int stack_empty(struct stack *s)
 {
-	return (s->top == 0) ? 1 : 0;
+	return (s->count == 0) ? 1 : 0;
 }
 
-/* stack_full: return 1 if stack is full, otherwise 0 */
-int stack_full(struct stack *s)
+/* free_stack_node: free the memory of the given stack node */
+void free_stack_node(struct stack_node *node)
 {
-	return (s->top == DEFAULT_STACK_SIZE - 1) ? 1 : 0;
+	free(node);
 }
 
 /* free_stack: free the memory of the stack */
 void free_stack(struct stack *s)
 {
+	struct stack_node *curr, *temp;
+
+	curr = s->head;
+	while (curr != NULL) {
+		temp = curr;
+		curr = curr->next;
+		free_stack_node(temp);
+	}
 	free(s);
 }
 
@@ -69,12 +116,16 @@ void free_stack(struct stack *s)
 void print_stack(struct stack *s)
 {
 	int i;
+	struct stack_node *p;
 
 	if (stack_empty(s) == 1)
 		printf("The stack is empty.\n");
 	else {
-		printf("The stack contents are:\n");
-		for (i = 0; i <= s->top; i++)
-			printf("%d. " PRINT_ARG_S "\n", i+1, s->v[i]);
+		i = 1;
+		p = s->head;
+		while (p != NULL) {
+			printf("%d. " PRINT_ARG_S "\n", i++, p->data);
+			p = p->next;
+		}
 	}
 }
