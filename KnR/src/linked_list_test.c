@@ -21,6 +21,15 @@ void linked_list_test(void)
 	menu(list);
 }
 
+data_type get_data(void)
+{
+	data_type d;
+
+	printf("Input data: ");
+	scanf(PRINT_ARG, &d);
+	return d;
+}
+
 /* pre_process: pre-processing before launching the main menu */
 struct linked_list *pre_process(void)
 {
@@ -40,14 +49,14 @@ struct linked_list *pre_process(void)
 /* menu: the main frame of the test process */
 void menu(struct linked_list *list)
 {
-	int num;
+	int option;
 
-	num = 0;
-	while (num != 9) {
+	option = 0;
+	while (option != 9) {
 		display_main_menu();
-		num = menu_option();
+		option = menu_option();
 		printf("\n");
-		main_menu_action(list, num);
+		main_menu_action(list, option);
 	}
 }
 
@@ -71,19 +80,19 @@ void display_main_menu(void)
 /* menu_option: return the int type option */
 int menu_option(void)
 {
-	char option[OPTION_LENGTH];
-	int num;
+	char option_s[OPTION_LENGTH];
+	int option;
 
-	get_line(option, OPTION_LENGTH);
-	num = atoi(option);
+	get_line(option_s, OPTION_LENGTH);
+	option = atoi(option_s);
 
-	return num;
+	return option;
 }
 
 /* main_menu_action: the action of the main menu */
-void main_menu_action(struct linked_list *list, int num)
+void main_menu_action(struct linked_list *list, int option)
 {
-	switch (num) {
+	switch (option) {
 	case 1:
 		print_list(list);
 		menu_pause();
@@ -150,12 +159,12 @@ void display_add_menu(void)
 /* add_menu_action: the action for add menu */
 void add_menu_action(struct linked_list *list, int option)
 {
-	int num, pos;
+	int pos;
+	data_type d;
 	struct list_node *p;
 
-	printf("Input num: ");
-	num = menu_option();
-	p = init_list_node(num);
+	d = get_data();
+	p = init_list_node(d);
 	if (p == NULL)
 		printf("Failed to add new node\n");
 
@@ -186,7 +195,8 @@ void add_menu_action(struct linked_list *list, int option)
 /* edit_menu: the menu for editing nodes */
 void edit_menu(struct linked_list *list)
 {
-	int index, num;
+	int index;
+	data_type d;
 	struct list_node *p;
 
 	print_list(list);
@@ -197,23 +207,22 @@ void edit_menu(struct linked_list *list)
 	if (index > 0) {
 		printf("\n");
 		p = search_list_node_by_pos(list, index-1);
-		printf("Please input num: ");
-		num = menu_option();
-		p->num = num;
+		d = get_data();
+		p->data = d;
 	}
 }
 
 /* delete_menu: the menu for deleting nodes */
 void delete_menu(struct linked_list *list)
 {
-	int num;
+	int option;
 
-	num = 0;
-	while (num != 9) {
+	option = 0;
+	while (option != 9) {
 		display_delete_menu();
-		num = menu_option();
+		option = menu_option();
 		printf("\n");
-		delete_menu_action(list, num);
+		delete_menu_action(list, option);
 	}
 }
 
@@ -221,7 +230,7 @@ void delete_menu(struct linked_list *list)
 void display_delete_menu(void)
 {
 	printf("************* DELETE CONTACT ***************\n");
-	printf(">> 1. Delete by Num\n");
+	printf(">> 1. Delete by Data\n");
 	printf(">> 2. Delete by Index\n");
 	printf(">> 3. Delete All\n");
 	printf(">> 9. Back to Main Menu\n");
@@ -230,11 +239,11 @@ void display_delete_menu(void)
 }
 
 /* delete_menu_action: the action for delete menu */
-void delete_menu_action(struct linked_list *list, int num)
+void delete_menu_action(struct linked_list *list, int option)
 {
-	switch (num) {
+	switch (option) {
 	case 1:
-		delete_by_num(list);
+		delete_by_data(list);
 		menu_pause();
 		break;
 	case 2:
@@ -250,18 +259,15 @@ void delete_menu_action(struct linked_list *list, int num)
 	}
 }
 
-/* delete_by_num: actions of deleting a node with a specified num */
-void delete_by_num(struct linked_list *list)
+/* delete_by_data: actions of deleting a node with the specified data */
+void delete_by_data(struct linked_list *list)
 {
-	int num;
+	data_type d;
 
 	print_list(list);
-
-	printf("Input num: ");
-	num = menu_option();
-
+	d = get_data();
 	printf("\n");
-	if (delete_list_node_by_num(list, num) < 0)
+	if (delete_list_node_by_data(list, d) < 0)
 		printf("Node not found.\n");
 	else
 		printf("Deleted.\n");
@@ -273,7 +279,6 @@ void delete_by_pos(struct linked_list *list)
 	int pos;
 
 	print_list(list);
-
 	printf("Input postion (0 to quit): ");
 	pos = menu_option();
 

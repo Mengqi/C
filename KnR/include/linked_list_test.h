@@ -12,11 +12,12 @@
 
 /* function declaration */
 void linked_list_test(void);
+data_type get_data(void);
 struct linked_list *pre_process(void);
 void menu(struct linked_list *list);
 void display_main_menu(void);
 int menu_option(void);
-void main_menu_action(struct linked_list *list, int num);
+void main_menu_action(struct linked_list *list, int option);
 void menu_pause(void);
 void add_menu(struct linked_list *list);
 void display_add_menu(void);
@@ -24,8 +25,8 @@ void add_menu_action(struct linked_list *list, int option);
 void edit_menu(struct linked_list *list);
 void delete_menu(struct linked_list *list);
 void display_delete_menu(void);
-void delete_menu_action(struct linked_list *list, int num);
-void delete_by_num(struct linked_list *list);
+void delete_menu_action(struct linked_list *list, int option);
+void delete_by_data(struct linked_list *list);
 void delete_by_pos(struct linked_list *list);
 void search_menu(struct linked_list *list);
 void sort_menu(struct linked_list *list);

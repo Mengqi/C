@@ -31,7 +31,7 @@ struct linked_list *init_list(void)
 }
 
 /* init_list_node: initialize a new node */
-struct list_node *init_list_node(int number)
+struct list_node *init_list_node(data_type d)
 {
 	struct list_node *p;
 
@@ -39,7 +39,7 @@ struct list_node *init_list_node(int number)
 	if (p == NULL)
 		return NULL;
 
-	p->num = number;
+	p->data = d;
 	p->next = NULL;
 
 	return p;
@@ -98,15 +98,15 @@ int add_list_node_by_pos(struct linked_list *list, struct list_node *node,
 	return 0;
 }
 
-/* search_list_node_by_num: search the node with the given number */
-struct list_node *search_list_node_by_num(struct linked_list *list,
-					  int number)
+/* search_list_node_by_data: search the node with the given data */
+struct list_node *search_list_node_by_data(struct linked_list *list,
+					   data_type d)
 {
 	struct list_node *p;
 
 	p = list->head;
 	while (p != NULL) {
-		if (p->num == number)
+		if (p->data == d)
 			return p;
 		p = p->next;
 	}
@@ -132,18 +132,18 @@ struct list_node *search_list_node_by_pos(struct linked_list *list, int pos)
 	return p;
 }
 
-/* delete_list_node_by_num: delete a node with the given number */
-int delete_list_node_by_num(struct linked_list *list, int number)
+/* delete_list_node_by_data: delete a node with the given data */
+int delete_list_node_by_data(struct linked_list *list, data_type d)
 {
 	struct list_node *prev_ptr, *curr_ptr;
 
 	prev_ptr = NULL;
 	curr_ptr = list->head;
 	while (curr_ptr != NULL) {
-		if (curr_ptr->num == number) {
-			if (curr_ptr == list->head)	/* node is the head */
+		if (curr_ptr->data == d) {
+			if (curr_ptr == list->head)	/* the head */
 				list->head = curr_ptr->next;
-			if (curr_ptr == list->end)	/* node is the end */
+			if (curr_ptr == list->end)	/* the end */
 				list->end = prev_ptr;
 			if (prev_ptr != NULL)	/* node is not the head */
 				prev_ptr->next = curr_ptr->next;
@@ -210,20 +210,16 @@ int list_empty(struct linked_list *list)
 	return (list->head == NULL) ? 1 : 0;
 }
 
-/* print_list_node: print the num of a given node */
-void print_list_node(struct list_node *node)
-{
-	printf("num = %d\n", node->num);
-}
-
-/* print_list: print the num of the entire linked list */
+/* print_list: print the entire linked list */
 void print_list(struct linked_list *list)
 {
+	int i;
 	struct list_node *p;
 
 	p = list->head;
+	i = 1;
 	while (p != NULL) {
-		print_list_node(p);
+		printf("%d. " PRINT_ARG "\n", i++, p->data);
 		p = p->next;
 	}
 }
@@ -234,7 +230,8 @@ struct linked_list *read_linked_list(char *file_name)
 	struct linked_list *list;
 	struct list_node *node;
 	FILE *fp;
-	int i, n, num;
+	int i, n;
+	data_type d;
 
 	list = init_list();
 	if (list == NULL)	/* failed to initialize the linked list */
@@ -248,11 +245,12 @@ struct linked_list *read_linked_list(char *file_name)
 	if (fread(&n, 1, sizeof(int), fp) != sizeof(int))
 		goto error;
 
-	/* traverse the linked list, and read all contact from file */
+	/* traverse the linked list, and read all nodes from file */
 	for (i = 0; i < n; i++) {
-		if (fread(&num, 1, sizeof(int), fp) != sizeof(int))
+		if (fread(&d, 1, sizeof(data_type), fp)
+		    != sizeof(data_type))
 			goto error;
-		node = init_list_node(num);
+		node = init_list_node(d);
 		if (node == NULL)
 			goto error;
 		/**
@@ -291,7 +289,8 @@ int write_linked_list(struct linked_list *list, char *file_name)
 	/* traverse the linked list, write all nodes to file */
 	p = list->head;
 	for (i = 0; i < n; i++) {
-		if (fwrite(&p->num, 1, sizeof(int), fp) != sizeof(int))
+		if (fwrite(&p->data, 1, sizeof(data_type), fp)
+		    != sizeof(data_type))
 			goto error;
 		p = p->next;
 	}
