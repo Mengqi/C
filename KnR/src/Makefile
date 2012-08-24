@@ -20,7 +20,7 @@ PROGRAM	= knr
 #
 
 SOURCES = knr.c foo.c nlist.c memory_alloc.c linked_list.c \
-	  linked_list_test.c stack.c
+	  linked_list_test.c stack.c queue.c
 
 #
 # The HOME macro is the home directory of the program.
