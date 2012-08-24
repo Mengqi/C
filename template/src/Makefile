@@ -13,14 +13,13 @@
 # location.
 #
 
-PROGRAM	= knr
+PROGRAM	= test
 
 #
-# The SOURCES macro contains a list of code source files.
+# The SOURCES macro contains a list of source files.
 #
 
-SOURCES = knr.c foo.c nlist.c memory_alloc.c linked_list.c \
-	  linked_list_test.c
+SOURCES	= test.c hello.c
 
 #
 # The HOME macro is the home directory of the program.
@@ -65,7 +64,7 @@ DOCDIR = $(HOME)/doc
 # directory information to be passed to the linker.
 #
 
-OBJECTS = $(SOURCES:.c=.o)
+OBJECTS	= $(SOURCES:.c=.o)
 
 CC	= gcc
 CFLAGS	= -DESRI_UNIX $(INCLUDEDIRS)
@@ -91,7 +90,7 @@ $(PROGRAM): $(OBJECTS)
 # a list of commands for compilation.
 #
 
-$(OBJDIR)%.o: %.c
+%.o: %.c
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 #
@@ -114,4 +113,3 @@ run:
 clean:
 	rm -f $(PROGRAM) $(OBJECTS) *~ $(_INCLUDEDIR)/*~ $(_LIBDIR)/*~ \
 	$(_DOCDIR)/*~
-
