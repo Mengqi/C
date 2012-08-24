@@ -8,21 +8,11 @@
 
 #include <stdio.h>
 
-#include "stack.h"
+#include "linked_list_test.h"
 
 int main(int argc, char *argv[])
 {
-	struct stack *s;
-
-	s = init_stack();
-	stack_push(s, 1);
-	stack_push(s, 2);
-	stack_push(s, 3);
-	printf(PRINT_ARG "\n", stack_pop(s));
-	stack_push(s, 4);
-	printf(PRINT_ARG "\n", stack_pop(s));
-	stack_push(s,5);
-	print_stack(s);
+	linked_list_test();
 
 	return 0;
 }

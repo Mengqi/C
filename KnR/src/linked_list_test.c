@@ -21,12 +21,12 @@ void linked_list_test(void)
 	menu(list);
 }
 
-data_type get_data(void)
+data_type_l get_data(void)
 {
-	data_type d;
+	data_type_l d;
 
 	printf("Input data: ");
-	scanf(PRINT_ARG, &d);
+	scanf(PRINT_ARG_L, &d);
 	return d;
 }
 
@@ -160,7 +160,7 @@ void display_add_menu(void)
 void add_menu_action(struct linked_list *list, int option)
 {
 	int pos;
-	data_type d;
+	data_type_l d;
 	struct list_node *p;
 
 	d = get_data();
@@ -196,7 +196,7 @@ void add_menu_action(struct linked_list *list, int option)
 void edit_menu(struct linked_list *list)
 {
 	int index;
-	data_type d;
+	data_type_l d;
 	struct list_node *p;
 
 	print_list(list);
@@ -262,7 +262,7 @@ void delete_menu_action(struct linked_list *list, int option)
 /* delete_by_data: actions of deleting a node with the specified data */
 void delete_by_data(struct linked_list *list)
 {
-	data_type d;
+	data_type_l d;
 
 	print_list(list);
 	d = get_data();

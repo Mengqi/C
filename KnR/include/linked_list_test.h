@@ -12,7 +12,7 @@
 
 /* function declaration */
 void linked_list_test(void);
-data_type get_data(void);
+data_type_l get_data(void);
 struct linked_list *pre_process(void);
 void menu(struct linked_list *list);
 void display_main_menu(void);

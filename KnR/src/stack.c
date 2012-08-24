@@ -26,7 +26,7 @@ struct stack *init_stack(void)
 }
 
 /* stack_push: push one element into the stack */
-void stack_push(struct stack *s, data_type val)
+void stack_push(struct stack *s, data_type_s val)
 {
 	if (stack_full(s) == 1) {	/* stack already full */
 		perror("Invalid push: Stack is full\n");
@@ -37,7 +37,7 @@ void stack_push(struct stack *s, data_type val)
 }
 
 /* stack_pop: pop one element from the stack */
-data_type stack_pop(struct stack *s)
+data_type_s stack_pop(struct stack *s)
 {
 	if (stack_empty(s) == 1) {	/* stack already empty */
 		perror("Invalid pop: Stack is empty\n");
@@ -75,6 +75,6 @@ void print_stack(struct stack *s)
 	else {
 		printf("The stack contents are:\n");
 		for (i = 0; i <= s->top; i++)
-			printf("%d. " PRINT_ARG "\n", i+1, s->v[i]);
+			printf("%d. " PRINT_ARG_S "\n", i+1, s->v[i]);
 	}
 }
