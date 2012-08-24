@@ -177,7 +177,7 @@ int delete_list_node_by_pos(struct linked_list *list, int pos)
 		list->head = curr_ptr->next;
 	if (curr_ptr == list->tail)	/* node is the tail */
 		list->tail = prev_ptr;
-	if (prev_ptr != NULL)	/* node is not the head */
+	if (prev_ptr != NULL)	/* curr_ptr is not the head */
 		prev_ptr->next = curr_ptr->next;
 	free_list_node(curr_ptr);
 	list->count--;
@@ -194,14 +194,15 @@ void free_list_node(struct list_node *node)
 /* free_linked_list: free the memory of the entire linked list */
 void free_linked_list(struct linked_list *list)
 {
-	struct list_node *p, *temp;
+	struct list_node *curr, *temp;
 
-	p = list->head;
-	while (p != NULL) {
-		temp = p;
-		p = p->next;
-		free_list_node(p);
+	curr = list->head;
+	while (curr != NULL) {
+		temp = curr;
+		curr = curr->next;
+		free_list_node(temp);
 	}
+	free(list);
 }
 
 /* list_empty: return 1 if list is empty, 0 otherwise */
@@ -216,11 +217,15 @@ void print_list(struct linked_list *list)
 	int i;
 	struct list_node *p;
 
-	p = list->head;
-	i = 1;
-	while (p != NULL) {
-		printf("%d. " PRINT_ARG_L "\n", i++, p->data);
-		p = p->next;
+	if (list_empty(list) == 1)
+		printf("The linked list is empty.\n");
+	else {
+		i = 1;
+		p = list->head;
+		while (p != NULL) {
+			printf("%d. " PRINT_ARG_L "\n", i++, p->data);
+			p = p->next;
+		}
 	}
 }
 
