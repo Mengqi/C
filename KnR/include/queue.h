@@ -28,8 +28,8 @@ struct queue_node *init_queue_node(data_type_q d);
 int enqueue(struct queue *q, data_type_q d);
 data_type_q dequeue(struct queue *q);
 int queue_empty(struct queue *q);
-int free_queue_node(struct queue_node *node);
-int free_queue(struct queue *q);
+void free_queue_node(struct queue_node *node);
+void free_queue(struct queue *q);
 void print_queue(struct queue *q);
 
 #endif	/* _QUEUE_H */

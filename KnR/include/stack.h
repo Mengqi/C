@@ -14,7 +14,7 @@ typedef int data_type_s;	/* modify data type here */
 #define PRINT_ARG_S "%d"	/* print argument of data_type_s */
 
 struct stack_node {
-	data_type_s data;
+        data_type_s data;
 	struct stack_node *prev;
 	struct stack_node *next;
 };

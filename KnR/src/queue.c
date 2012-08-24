@@ -89,13 +89,13 @@ int queue_empty(struct queue *q)
 }
 
 /* free_queue_node: free the memory of the given queue node */
-int free_queue_node(struct queue_node *node)
+void free_queue_node(struct queue_node *node)
 {
 	free(node);
 }
 
 /* free_queue: free the memory of the queue */
-int free_queue(struct queue *q)
+void free_queue(struct queue *q)
 {
 	struct queue_node *curr, *temp;
 
